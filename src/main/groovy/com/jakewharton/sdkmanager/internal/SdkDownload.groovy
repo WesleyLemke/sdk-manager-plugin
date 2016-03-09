@@ -45,7 +45,10 @@ enum SdkDownload {
 
   /** Download the SDK to {@code temp} and extract to {@code dest}. */
   void download(File dest) {
-    def url = "http://dl.google.com/android/android-sdk_r$SDK_VERSION_MAJOR-$suffix.$ext"
+    def url = "https://dl.google.com/android/android-sdk_r$SDK_VERSION_MAJOR-$suffix.$ext"
+    if ( System.properties.'android.preferHttp' == 'y') {
+        url = "http://dl.google.com/android/android-sdk_r$SDK_VERSION_MAJOR-$suffix.$ext"
+    }
     log.debug "Downloading SDK from $url."
 
     File temp = new File(dest.getParentFile(), 'android-sdk.temp')
